@@ -1,0 +1,7 @@
+.task-list-container { padding: 20px; }
+.filters { display: flex; gap: 20px; align-items: center; margin-bottom: 20px; }
+table { width: 100%; }
+.status-badge { padding: 4px 8px; border-radius: 4px; text-transform: capitalize; font-size: 12px; font-weight: bold; }
+.pending { background-color: #ffe0b2; color: #e65100; }
+.completed { background-color: #c8e6c9; color: #2e7d32; }
+.overdue { background-color: #ffcdd2; color: #c62828; }
