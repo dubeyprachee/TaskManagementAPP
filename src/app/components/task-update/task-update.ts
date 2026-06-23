@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../../services/task.service';
-import { Task } from '../../models/task.model';
+import type { Task } from '../../models/task.model';
 import { TaskFormComponent } from '../task-form/task-form';
 
 @Component({
   selector: 'app-task-update',
-  standalone: true,
-  imports: [CommonModule, TaskFormComponent],
+
+
   template: `
     <div style="padding: 20px;">
       <h2>Update Task</h2>

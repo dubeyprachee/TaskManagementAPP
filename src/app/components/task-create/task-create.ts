@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { TaskService } from '../../services/task.service';
-import { Task } from '../../models/task.model';
+import type { Task } from '../../models/task.model';
 import { TaskFormComponent } from '../task-form/task-form';
 
 @Component({
   selector: 'app-task-create',
-  standalone: true,
-  imports: [TaskFormComponent],
+
+
   template: `
     <div style="padding: 20px;">
       <h2>Create New Task</h2>

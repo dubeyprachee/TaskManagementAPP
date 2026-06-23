@@ -9,12 +9,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
-import { Task } from '../../models/task.model';
+import type { Task } from '../../models/task.model';
 
 @Component({
   selector: 'app-task-list',
-  standalone: true,
-  imports: [CommonModule, RouterModule, MatTableModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule, MatSelectModule, FormsModule],
+
+
   templateUrl: './task-list.html',
   styleUrls: ['./task-list.css']
 })
