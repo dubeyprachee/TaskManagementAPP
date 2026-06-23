@@ -10,15 +10,7 @@ import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule
-  ],
+
   templateUrl: './login.html',
   styles: [`
     .login-container { display: flex; justify-content: center; align-items: center; height: 100vh; }

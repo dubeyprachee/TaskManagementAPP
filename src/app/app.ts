@@ -1,23 +1,34 @@
-import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet, RouterModule, Router } from '@angular/router';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterModule, MatToolbarModule, MatSidenavModule, MatListModule, MatIconModule, MatButtonModule],
-  templateUrl: './app.html',
-  styleUrl: './app.css',
+  template: `
+<mat-sidenav-container class="sidenav-container" *ngIf="authService.isLoggedIn(); else loginLayout">
+  <mat-sidenav mode="side" opened class="sidenav">
+    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/dashboard" routerLinkActive="active"><mat-icon matListItemIcon>dashboard</mat-icon><span matListItemTitle>Dashboard</span></a>
+      <a mat-list-item routerLink="/tasks" routerLinkActive="active"><mat-icon matListItemIcon>list</mat-icon><span matListItemTitle>Tasks</span></a>
+      <button mat-list-item (click)="logout()"><mat-icon matListItemIcon>exit_to_app</mat-icon><span matListItemTitle>Logout</span></button>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary"><span>Task Management System</span></mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<ng-template #loginLayout><router-outlet></router-outlet></ng-template>
+  `,
+  styles: [`
+.sidenav-container { height: 100vh; }
+.sidenav { width: 200px; }
+.active { background: rgba(0, 0, 0, 0.04); }
+  `],
 })
 export class App {
-  authService = inject(AuthService);
-  router = inject(Router);
+  constructor(public authService: AuthService, private router: Router) {}
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);

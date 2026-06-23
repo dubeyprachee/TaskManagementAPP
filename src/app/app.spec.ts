@@ -1,18 +1,38 @@
 import { TestBed } from '@angular/core/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule, Router } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+
 import { App } from './app';
-import { provideHttpClient } from '@angular/common/http';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
+import { AuthService } from './services/auth.service';
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [App],
+      declarations: [App],
+      imports: [
+        HttpClientModule,
+        BrowserAnimationsModule,
+        RouterModule.forRoot(routes),
+        MatToolbarModule,
+        MatSidenavModule,
+        MatListModule,
+        MatIconModule,
+        MatButtonModule
+      ],
       providers: [
-        provideHttpClient(),
-        provideAnimationsAsync(),
-        provideRouter(routes)
+        AuthService,
+        {
+          provide: App,
+          useFactory: (auth: AuthService, router: Router) => new App(auth, router),
+          deps: [AuthService, Router]
+        }
       ]
     }).compileComponents();
   });

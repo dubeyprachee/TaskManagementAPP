@@ -1,22 +1,22 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
-import { AuthResponse, User } from '../models/task.model';
+import { Observable, tap, BehaviorSubject } from 'rxjs';
+import type { AuthResponse, User } from '../models/task.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private apiUrl = 'https://api.example.com/auth';
-  private currentUserSignal = signal<User | null>(null);
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
 
-  currentUser = this.currentUserSignal.asReadonly();
+  currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient) {
     const savedUser = localStorage.getItem('user');
     if (savedUser) {
       try {
-        this.currentUserSignal.set(JSON.parse(savedUser));
+        this.currentUserSubject.next(JSON.parse(savedUser));
       } catch (e) {
         localStorage.removeItem('user');
       }
@@ -28,7 +28,7 @@ export class AuthService {
       tap(res => {
         localStorage.setItem('token', res.token);
         localStorage.setItem('user', JSON.stringify(res.user));
-        this.currentUserSignal.set(res.user);
+        this.currentUserSubject.next(res.user);
       })
     );
   }
@@ -36,10 +36,10 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    this.currentUserSignal.set(null);
+    this.currentUserSubject.next(null);
   }
 
   isLoggedIn(): boolean {
-    return !!this.currentUserSignal();
+    return !!this.currentUserSubject.value;
   }
 }
