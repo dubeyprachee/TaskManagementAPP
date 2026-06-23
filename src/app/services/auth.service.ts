@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { AuthResponse, User } from '../models/task.model';
 
 @Injectable({
@@ -24,12 +24,7 @@ export class AuthService {
   }
 
   login(credentials: any): Observable<AuthResponse> {
-    const mockResponse: AuthResponse = {
-      token: 'mock-token',
-      user: { id: 1, username: 'admin', email: 'admin@example.com' }
-    };
-
-    return of(mockResponse).pipe(
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials).pipe(
       tap(res => {
         localStorage.setItem('token', res.token);
         localStorage.setItem('user', JSON.stringify(res.user));
