@@ -7,3 +7,4 @@
 .charts-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; }
 .chart-card { padding: 10px; }
 canvas { max-height: 300px; }
+app-task-list { display: block; margin-top: 30px; }
