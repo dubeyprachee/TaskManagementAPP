@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap, BehaviorSubject } from 'rxjs';
 import type { AuthResponse, User } from '../models/task.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://api.example.com/auth';
+  private apiUrl = environment.apiBaseUrl; //'http://localhost:8055/tms/api/auth';
+  private loginUrl = environment.loginUrl;
   private currentUserSubject = new BehaviorSubject<User | null>(null);
 
   currentUser$ = this.currentUserSubject.asObservable();
@@ -24,8 +26,9 @@ export class AuthService {
   }
 
   login(credentials: any): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials).pipe(
+    return this.http.post<AuthResponse>(`${this.apiUrl}${this.loginUrl}`, credentials).pipe(
       tap(res => {
+      console.log('Login response:', JSON.stringify(res.user));
         localStorage.setItem('token', res.token);
         localStorage.setItem('user', JSON.stringify(res.user));
         this.currentUserSubject.next(res.user);
@@ -40,6 +43,7 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
+  console.log('Current user:', this.currentUserSubject.value);
     return !!this.currentUserSubject.value;
   }
 }

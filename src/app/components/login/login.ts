@@ -31,6 +31,7 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
+    console.log('Form Submitted', this.loginForm.value);
       this.authService.login(this.loginForm.value).subscribe({
         next: () => this.router.navigate(['/dashboard']),
         error: () => this.errorMessage = 'Invalid credentials'

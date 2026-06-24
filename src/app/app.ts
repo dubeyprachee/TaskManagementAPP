@@ -9,9 +9,10 @@ import { AuthService } from './services/auth.service';
   <mat-sidenav mode="side" opened class="sidenav">
     <mat-toolbar color="primary">Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item routerLink="/dashboard" routerLinkActive="active"><mat-icon matListItemIcon>dashboard</mat-icon><span matListItemTitle>Dashboard</span></a>
-      <a mat-list-item routerLink="/tasks" routerLinkActive="active"><mat-icon matListItemIcon>list</mat-icon><span matListItemTitle>Tasks</span></a>
-      <button mat-list-item (click)="logout()"><mat-icon matListItemIcon>exit_to_app</mat-icon><span matListItemTitle>Logout</span></button>
+      <a mat-list-item routerLink="/dashboard" routerLinkActive="active"><span matListItemTitle>Dashboard</span></a>
+      <a mat-list-item routerLink="/tasks/create" routerLinkActive="active"><span matListItemTitle>Create Tasks</span></a>
+      <a mat-list-item routerLink="/tasks" routerLinkActive="active"><span matListItemTitle>Tasks</span></a>
+      <button mat-list-item (click)="logout()"><span matListItemTitle>Logout</span></button>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
