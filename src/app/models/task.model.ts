@@ -5,6 +5,7 @@ export interface Task {
   dueDate: string;
   status: 'pending' | 'completed' | 'overdue';
   priority: 'low' | 'medium' | 'high';
+  assignedTo?: number;
 }
 
 export interface User {

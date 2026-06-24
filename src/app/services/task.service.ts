@@ -41,8 +41,14 @@ export class TaskService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
+
+  assignTask(taskId: number, userId: number | undefined): Observable<Task> {
+    return this.http.patch<Task>(`${this.apiUrl}${this.getTasksUrl}/${taskId}`, { assignedTo: userId });
+  }
+
     getTasksSummary(): Observable<TaskSummary> {
 
       return this.http.get<TaskSummary>(this.getTasksSummaryUrl)
     }
+
 }
