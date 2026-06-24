@@ -18,3 +18,9 @@ export interface AuthResponse {
   token: string;
   user: User;
 }
+
+export interface TaskSummary {
+  months: any[];
+  compledtedCounts: any[];
+  pendingCounts: any[];
+}

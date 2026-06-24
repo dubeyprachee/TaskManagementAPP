@@ -4,7 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { ChartsModule } from '../../charts.module';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { TaskService } from '../../services/task.service';
-import type { Task } from '../../models/task.model';
+import type { Task , TaskSummary} from '../../models/task.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -30,8 +30,8 @@ export class DashboardComponent implements OnInit {
 
   public barChartOptions: ChartConfiguration['options'] = { responsive: true };
   public barChartData: ChartData<'bar'> = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-    datasets: [{ data: [65, 59, 80, 81, 56, 55, 40], label: 'Completed Tasks' }]
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul','Aug','Sep', 'Oct', 'Nov', 'Dec'],
+    datasets: [{ data: [65, 59, 80, 81, 56, 55, 40], label: 'Completed Tasks' },{ data: [0, 0, 1, 0, 0, 6, 7], label: 'Pending Tasks' }]
   };
   public barChartType: ChartType = 'bar';
 
@@ -39,15 +39,35 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.taskService.getTasks().subscribe(tasks => this.calculateStats(tasks));
+    this.taskService.getTasksSummary().subscribe(summary => this.loadChartData(summary));
+
   }
 
-  calculateStats(tasks: Task[]) {
-    this.completedTasks = tasks.filter(t => t.status === 'completed').length;
-    this.pendingTasks = tasks.filter(t => t.status === 'pending').length;
-    this.overdueTasks = tasks.filter(t => t.status === 'overdue').length;
+  calculateStats(tasks: any[]) {
+    this.completedTasks = tasks.filter(t => t.taskStatus.toLowerCase() === 'completed').length;
+    this.pendingTasks = tasks.filter(t => t.taskStatus.toLowerCase() === 'pending').length;
+    this.overdueTasks = tasks.filter(t => t.taskStatus.toLowerCase() === 'overdue').length;
     this.pieChartData = {
       ...this.pieChartData,
       datasets: [{ ...this.pieChartData.datasets[0], data: [this.pendingTasks, this.completedTasks, this.overdueTasks] }]
+    };
+  }
+
+  loadChartData(summary : TaskSummary) {
+
+    this.barChartData = {
+    ...this.barChartData,
+      labels :summary.months,
+      datasets: [
+        {
+          label : 'Completed Tasks',
+          data: summary.compledtedCounts
+         },
+         {
+           label : 'Pending Tasks',
+           data: summary.pendingCounts
+          }
+      ]
     };
   }
 }

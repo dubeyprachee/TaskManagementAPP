@@ -43,7 +43,7 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-  console.log('Current user:', this.currentUserSubject.value);
+//   console.log('Current user:', this.currentUserSubject.value);
     return !!this.currentUserSubject.value;
   }
 }

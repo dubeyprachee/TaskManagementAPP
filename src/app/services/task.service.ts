@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import type { Task } from '../models/task.model';
+import type { Task , TaskSummary } from '../models/task.model';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -11,9 +11,11 @@ export class TaskService {
   private apiUrl = environment.apiBaseUrl; //'http://localhost:8055/tms/api/tasks';
   private createTaskUrl = environment.apiBaseUrl + environment.createTaskUrl;
   private getTasksUrl = environment.apiBaseUrl + environment.getTasksUrl;
+  private getTasksSummaryUrl = environment.apiBaseUrl + environment.getTasksSummaryUrl;
   constructor(private http: HttpClient) {}
 
   getTasks(): Observable<Task[]> {
+
     return this.http.get<Task[]>(this.getTasksUrl)
   }
 
@@ -39,7 +41,14 @@ export class TaskService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
+
   assignTask(taskId: number, userId: number | undefined): Observable<Task> {
     return this.http.patch<Task>(`${this.apiUrl}${this.getTasksUrl}/${taskId}`, { assignedTo: userId });
   }
+
+    getTasksSummary(): Observable<TaskSummary> {
+
+      return this.http.get<TaskSummary>(this.getTasksSummaryUrl)
+    }
+
 }

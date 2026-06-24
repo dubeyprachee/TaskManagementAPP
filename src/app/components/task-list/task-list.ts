@@ -22,7 +22,8 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./task-list.css']
 })
 export class TaskListComponent implements OnInit {
-  tasks: Task[] = [];
+  tasks: any[] = [];
+  updatedTasks: any[] = [];
   filteredTasks: Task[] = [];
   displayedColumns: string[] = ['title', 'status', 'priority', 'dueDate', 'actions'];
   filterStatus: string = 'all';
@@ -35,14 +36,29 @@ export class TaskListComponent implements OnInit {
   loadTasks() {
     this.taskService.getTasks().subscribe(tasks => {
       this.tasks = tasks;
+
+      this.updatedTasks = this.tasks.map(task => {
+        return {
+          id: task.taskId,
+          title: task.taskTitle,
+          priority:task.taskPriority,
+          status: task.taskStatus,
+          dueDate: new Date(task.taskDueDate)
+        };
+      });
+
+      console.log("Updated Tasks: ", this.updatedTasks, "Original Tasks: ", this.tasks, "Filtered Tasks: ", this.filteredTasks, "Displayed Columns: ", this.displayedColumns, "Filter Status: ", this.filterStatus, "Search Query: ", this.searchQuery)
       this.applyFilters();
     });
   }
 
   applyFilters() {
-    this.filteredTasks = this.tasks.filter(task => {
-      const matchesStatus = this.filterStatus === 'all' || task.status === this.filterStatus;
-      const matchesSearch = task.title.toLowerCase().includes(this.searchQuery.toLowerCase()) || task.description.toLowerCase().includes(this.searchQuery.toLowerCase());
+//   console.log("Applying Filters... Filter Status: ", this.filterStatus, "Search Query: ", this.searchQuery, "Updated Tasks: ", this.updatedTasks, "Filtered Tasks: ", this.filteredTasks, "Displayed Columns: ", this.displayedColumns, "Original Tasks: ", this.tasks, "Task Service: ", this.taskService, "Component Instance: ", this, "ngOnInit Called: ", this.ngOnInit,
+  // "Load Tasks Called: ", this.loadTasks, "Apply Filters Called: ", this.applyFilters, "Delete Task Called: ", this.deleteTask);
+
+    this.filteredTasks = this.updatedTasks.filter(task => {
+      const matchesStatus = this.filterStatus === 'all' || task.status === this.filterStatus.toUpperCase();
+      const matchesSearch = task.title?.toLowerCase().includes(this.searchQuery.toLowerCase()) || task.description?.toLowerCase().includes(this.searchQuery.toLowerCase());
       return matchesStatus && matchesSearch;
     });
   }
@@ -52,6 +68,7 @@ export class TaskListComponent implements OnInit {
       this.taskService.deleteTask(id).subscribe(() => this.loadTasks());
     }
   }
+
 
   assignTask(task: Task) {
     const dialogRef = this.dialog.open(AssignTaskDialogComponent, {
@@ -109,4 +126,10 @@ export class TaskListComponent implements OnInit {
       link.remove();
     }, 100);
   }
+
+    assignTo(id: number) {
+      if (confirm('Are you sure you want to delete this task?')) {
+        this.taskService.deleteTask(id).subscribe(() => this.loadTasks());
+      }
+    }
 }

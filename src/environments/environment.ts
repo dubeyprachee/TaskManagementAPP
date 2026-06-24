@@ -3,5 +3,6 @@ export const environment = {
   apiBaseUrl: 'http://localhost:8055/tms/api',
   loginUrl: '/auth/login',
   createTaskUrl: '/tasks',
-  getTasksUrl: '/tasks'
+  getTasksUrl: '/tasks',
+  getTasksSummaryUrl: '/tasks/summary'
   }
