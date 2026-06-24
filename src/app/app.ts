@@ -12,6 +12,7 @@ import { AuthService } from './services/auth.service';
       <a mat-list-item routerLink="/dashboard" routerLinkActive="active"><span matListItemTitle>Dashboard</span></a>
       <a mat-list-item routerLink="/tasks/create" routerLinkActive="active"><span matListItemTitle>Create Tasks</span></a>
       <a mat-list-item routerLink="/tasks" routerLinkActive="active"><span matListItemTitle>Tasks</span></a>
+      <a mat-list-item routerLink="/users" routerLinkActive="active"><span matListItemTitle>Users</span></a>
       <button mat-list-item (click)="logout()"><span matListItemTitle>Logout</span></button>
     </mat-nav-list>
   </mat-sidenav>

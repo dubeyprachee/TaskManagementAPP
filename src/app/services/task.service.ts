@@ -38,4 +38,8 @@ export class TaskService {
   deleteTask(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  assignTask(taskId: number, userId: number | undefined): Observable<Task> {
+    return this.http.patch<Task>(`${this.apiUrl}${this.getTasksUrl}/${taskId}`, { assignedTo: userId });
+  }
 }
