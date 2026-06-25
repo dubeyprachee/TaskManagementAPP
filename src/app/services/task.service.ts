@@ -12,6 +12,7 @@ export class TaskService {
   private createTaskUrl = environment.apiBaseUrl + environment.createTaskUrl;
   private getTasksUrl = environment.apiBaseUrl + environment.getTasksUrl;
   private getTasksSummaryUrl = environment.apiBaseUrl + environment.getTasksSummaryUrl;
+  private getAssignTasksUrl = environment.assignTaskUrl;
   constructor(private http: HttpClient) {}
 
   getTasks(): Observable<Task[]> {
@@ -34,6 +35,7 @@ export class TaskService {
   }
 
   updateTask(task: Task): Observable<Task> {
+  console.log("Updating Tasks");
     return this.http.put<Task>(`${this.apiUrl}/${task.id}`, task);
   }
 
@@ -43,7 +45,10 @@ export class TaskService {
 
 
   assignTask(taskId: number, userId: number | undefined): Observable<Task> {
-    return this.http.patch<Task>(`${this.apiUrl}${this.getTasksUrl}/${taskId}`, { assignedTo: userId });
+    const task = {
+      taskId: taskId,
+      assignedTo: userId }
+    return this.http.post<Task>(`${this.getTasksUrl}${this.getAssignTasksUrl}`, task);
   }
 
     getTasksSummary(): Observable<TaskSummary> {

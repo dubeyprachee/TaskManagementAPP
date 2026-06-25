@@ -9,9 +9,9 @@ export interface Task {
 }
 
 export interface User {
-  id: number;
-  username: string;
-  email: string;
+  userId: number;
+  userName: string;
+  role: string;
 }
 
 export interface AuthResponse {
@@ -23,4 +23,5 @@ export interface TaskSummary {
   months: any[];
   compledtedCounts: any[];
   pendingCounts: any[];
+  overdueCounts: any[];
 }

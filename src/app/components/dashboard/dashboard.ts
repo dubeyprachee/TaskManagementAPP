@@ -66,7 +66,11 @@ export class DashboardComponent implements OnInit {
          {
            label : 'Pending Tasks',
            data: summary.pendingCounts
-          }
+          },
+          {
+            label : 'Overdue Tasks',
+            data: summary.overdueCounts
+           }
       ]
     };
   }

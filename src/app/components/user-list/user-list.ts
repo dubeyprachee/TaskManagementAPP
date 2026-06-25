@@ -23,6 +23,7 @@ export class UserListComponent implements OnInit {
 
   loadUsers() {
     this.userService.getUsers().subscribe(users => this.users = users);
+    console.log('Users loaded:', this.users);
   }
 
   deleteUser(id: number) {

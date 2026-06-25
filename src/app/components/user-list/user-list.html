@@ -2,24 +2,24 @@
   <div class="header">
     <h2>Users</h2>
     <button mat-raised-button color="primary" routerLink="/users/create">
-      <mat-icon>add</mat-icon> Create User
+       Create User
     </button>
   </div>
 
   <table mat-table [dataSource]="users" class="mat-elevation-z8">
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> ID </th>
-      <td mat-cell *matCellDef="let user"> {{user.id}} </td>
+      <td mat-cell *matCellDef="let user"> {{user.userId}} </td>
     </ng-container>
 
     <ng-container matColumnDef="username">
       <th mat-header-cell *matHeaderCellDef> Username </th>
-      <td mat-cell *matCellDef="let user"> {{user.username}} </td>
+      <td mat-cell *matCellDef="let user"> {{user.userName}} </td>
     </ng-container>
 
     <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef> Email </th>
-      <td mat-cell *matCellDef="let user"> {{user.email}} </td>
+      <th mat-header-cell *matHeaderCellDef> Role </th>
+      <td mat-cell *matCellDef="let user"> {{user.role}} </td>
     </ng-container>
 
     <ng-container matColumnDef="actions">

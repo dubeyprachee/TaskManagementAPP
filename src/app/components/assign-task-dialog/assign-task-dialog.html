@@ -4,8 +4,8 @@
     <mat-label>Assign To</mat-label>
     <mat-select [(ngModel)]="selectedUserId">
       <mat-option [value]="undefined">Unassigned</mat-option>
-      <mat-option *ngFor="let user of users" [value]="user.id">
-        {{user.username}} ({{user.email}})
+      <mat-option *ngFor="let user of users" [value]="user.userId">
+        {{user.userName}} ({{user.role}})
       </mat-option>
     </mat-select>
   </mat-form-field>

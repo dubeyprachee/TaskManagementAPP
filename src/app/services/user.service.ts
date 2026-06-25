@@ -8,11 +8,12 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = `${environment.apiBaseUrl}/users`;
+  private apiUrl = `${environment.apiBaseUrl}${environment.createUsersUrl}`;
 
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<User[]> {
+
     return this.http.get<User[]>(this.apiUrl);
   }
 
@@ -25,7 +26,7 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/${user.id}`, user);
+    return this.http.put<User>(`${this.apiUrl}/${user.userId}`, user);
   }
 
   deleteUser(id: number): Observable<void> {

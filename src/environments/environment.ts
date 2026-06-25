@@ -4,5 +4,7 @@ export const environment = {
   loginUrl: '/auth/login',
   createTaskUrl: '/tasks',
   getTasksUrl: '/tasks',
-  getTasksSummaryUrl: '/tasks/summary'
+  getTasksSummaryUrl: '/tasks/summary',
+  createUsersUrl: '/users',
+  assignTaskUrl: '/assign'
   }

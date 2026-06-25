@@ -28,6 +28,7 @@ export class AssignTaskDialogComponent implements OnInit {
   }
 
   onConfirm(): void {
+  console.log("Selected User ID: ", this.selectedUserId, " for Task ID: ", this.data.task.id, "Task Title: ", this.data.task.title);
     this.dialogRef.close(this.selectedUserId);
   }
 

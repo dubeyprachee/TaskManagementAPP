@@ -12,11 +12,9 @@
       </mat-select>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" routerLink="/tasks/create"><mat-icon>add</mat-icon> Create Task</button>
-    <button mat-raised-button color="secondary" (click)="downloadCSV()"><mat-icon>file_download</mat-icon> CSV</button>
-    <button mat-raised-button color="secondary" (click)="downloadExcel()"><mat-icon>file_download</mat-icon> Excel</button>
-
     <button mat-raised-button color="primary" routerLink="/tasks/create"> Create Task</button>
+    <button mat-raised-button color="secondary" (click)="downloadCSV()"> CSV</button>
+    <button mat-raised-button color="secondary" (click)="downloadExcel()">Excel</button>
 
   </div>
   <table mat-table [dataSource]="filteredTasks" class="mat-elevation-z8">
@@ -30,7 +28,6 @@
         <button mat-icon-button color="accent" (click)="assignTask(task)" title="Assign Task"><mat-icon>assignment_ind</mat-icon></button>
         <button mat-icon-button color="primary" [routerLink]="['/tasks/update', task.id]"><mat-icon>edit</mat-icon></button>
         <button mat-icon-button color="warn" (click)="deleteTask(task.id)"><mat-icon>delete</mat-icon></button>
-        <button mat-icon-button color="warn" (click)="assignTo(task.id)"><mat-icon>assign</mat-icon></button>
       </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
